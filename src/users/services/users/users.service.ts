@@ -9,7 +9,10 @@ export class UsersService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
   ) {}
-  findUsers() {}
+
+  async findUsers() {
+    return await this.userRepository.find();
+  }
   async createUsers(createUserDetails: CreateUserDto) {
     const newUser = this.userRepository.create({
       ...createUserDetails,
