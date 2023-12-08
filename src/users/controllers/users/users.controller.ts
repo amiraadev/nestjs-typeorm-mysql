@@ -43,6 +43,7 @@ export class UsersController {
     @Param('id', ParseIntPipe) id: number,
     @Body() createuserData: CreateUserProfileDto,
   ) {
+    // return createuserData;
     return this.usersService.createUserProfile(id, createuserData);
   }
 }

@@ -67,6 +67,7 @@ export class UsersService {
     });
 
     await this.userProfileRepository.save(newProfile);
-    return newProfile;
+    user.profile = newProfile;
+    return await this.userRepository.save(user);
   }
 }
