@@ -32,4 +32,12 @@ export class UsersService {
       ...createUserDetails,
     });
   }
+  async deleteUser(id: number) {
+    const deletedUser = this.userRepository.findOne({ where: { id } });
+    if (!deletedUser) {
+      throw new UnauthorizedException(`there is no such user with this id `);
+    }
+
+    return await this.userRepository.delete({ id });
+  }
 }
