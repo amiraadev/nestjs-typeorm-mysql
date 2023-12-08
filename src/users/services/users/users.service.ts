@@ -22,15 +22,13 @@ export class UsersService {
   }
 
   async updateUser(id: number, createUserDetails: CreateUserDto) {
-    const ubdatedUser = this.userRepository.findOne({ where: { id } });
+    const ubdatedUser = await this.userRepository.findOne({ where: { id } });
     if (!ubdatedUser) {
       throw new UnauthorizedException(`there is no such user with this id `);
     }
 
-    return await this.userRepository.save({
-      ...ubdatedUser,
-      ...createUserDetails,
-    });
+    Object.assign(ubdatedUser, createUserDetails);
+    return await this.userRepository.save(ubdatedUser);
   }
   async deleteUser(id: number) {
     const deletedUser = this.userRepository.findOne({ where: { id } });
