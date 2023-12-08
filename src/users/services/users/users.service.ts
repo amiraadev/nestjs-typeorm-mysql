@@ -5,6 +5,7 @@ import {
   UnauthorizedException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { Profile } from 'src/typeorm/entities/Profile';
 import { User } from 'src/typeorm/entities/User';
 import { CreateUserDto } from 'src/users/dtos/CreateUser.dto';
 import { CreateUserProfileDto } from 'src/users/dtos/CreateUserProfileDto';
@@ -14,6 +15,8 @@ import { Repository } from 'typeorm';
 export class UsersService {
   constructor(
     @InjectRepository(User) private userRepository: Repository<User>,
+    @InjectRepository(Profile)
+    private userProfileRepository: Repository<Profile>,
   ) {}
 
   async findUsers() {
@@ -47,7 +50,10 @@ export class UsersService {
     return await this.userRepository.delete(id);
   }
 
-  async createUserProfile(id: number, createUserData: CreateUserProfileDto) {
+  async createUserProfile(
+    id: number,
+    createUserProfileData: CreateUserProfileDto,
+  ) {
     const user = await this.userRepository.findOneBy({ id });
     if (!user) {
       throw new HttpException(
@@ -55,10 +61,12 @@ export class UsersService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    const newUser = this.userRepository.create({
-      ...createUserData,
-      createdAt: new Date(),
+
+    const newProfile = this.userProfileRepository.create({
+      ...createUserProfileData,
     });
-    return await this.userRepository.save(newUser);
+
+    await this.userProfileRepository.save(newProfile);
+    return newProfile;
   }
 }

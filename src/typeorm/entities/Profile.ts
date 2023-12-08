@@ -16,5 +16,5 @@ export class Profile {
   Date_of_birth: Date;
 
   @Column({ nullable: true })
-  age: string;
+  age: number;
 }
