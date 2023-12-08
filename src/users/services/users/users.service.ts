@@ -29,6 +29,8 @@ export class UsersService {
 
     Object.assign(ubdatedUser, createUserDetails);
     return await this.userRepository.save(ubdatedUser);
+    // OR
+    // await this.userRepository.update({ id } ,{...createUserDetails});
   }
   async deleteUser(id: number) {
     const deletedUser = this.userRepository.findOne({ where: { id } });
