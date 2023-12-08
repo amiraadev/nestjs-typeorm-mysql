@@ -15,3 +15,4 @@ ENV MYSQL_PASSWORD=my_password
 
 # Expose the default MySQL port (not mandatory as it's already exposed in the base image)
 EXPOSE 3306
+
