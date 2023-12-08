@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
@@ -25,12 +26,15 @@ export class UsersController {
   }
 
   @Put(':id')
-  ubdateUser(@Param('id') id: number, @Body() createuserData: CreateUserDto) {
+  ubdateUser(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() createuserData: CreateUserDto,
+  ) {
     return this.usersService.updateUser(id, createuserData);
   }
 
   @Delete(':id')
-  deleteUser(@Param('id') id: number) {
+  deleteUser(@Param('id', ParseIntPipe) id: number) {
     return this.usersService.deleteUser(id);
   }
 }

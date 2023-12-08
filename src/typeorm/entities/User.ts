@@ -1,5 +1,6 @@
 /* eslint-disable prettier/prettier */
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn,OneToOne, JoinColumn } from 'typeorm';
+import { Profile } from './Profile';
 
 @Entity({ name: 'users' })
 export class User {
@@ -17,4 +18,8 @@ export class User {
 
   @Column({ nullable: true })
   authStrategy: string;
+
+  @OneToOne(() => Profile)
+  @JoinColumn()
+  profile: Profile;
 }

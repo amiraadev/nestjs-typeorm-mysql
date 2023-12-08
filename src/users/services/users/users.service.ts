@@ -38,6 +38,6 @@ export class UsersService {
       throw new UnauthorizedException(`there is no such user with this id `);
     }
 
-    return await this.userRepository.delete({ id });
+    return await this.userRepository.delete(id);
   }
 }
